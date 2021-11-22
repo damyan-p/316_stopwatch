@@ -45,10 +45,10 @@ module stopwatch_sm(
     reg dp_reg;
     reg C_clr;
     reg C_cnt;
-    reg [1:0] debug;
 
     assign dp = dp_reg;
-    assign cstateDb = debug;
+    assign cstateDb[1] = C_clr;
+    assign cstateDb[0] = C_cnt;
     
     hexto7segment c3(.x(C[15:12]),.r(in3));
     hexto7segment c4(.x(C[11:8]),.r(in2));
@@ -56,8 +56,6 @@ module stopwatch_sm(
     hexto7segment c6(.x(C[3:0]),.r(in0));
     
     always @ (*) begin
-    debug[1] = c_clk;
-    debug[0] = d_clk;
         case(state)
             default: next_state = 2'b00;
             2'b00: next_state = 2'b01;
@@ -175,54 +173,55 @@ module stopwatch_sm(
                         end
                     end
                 end
-            end
-            if(~(sel[1]) && (sel[0])) begin
-                C[3:0] <= C[3:0] + 1;
-                if(C[3:0] == 4'h9) begin
-                    C[3:0] <= 0;
-                    C[7:4] <= C[7:4] + 1;
-                    if(C[7:4] == 4'h9) begin
-                        C[7:4] <= 0;
-                        C[11:8] <= C[11:8] + 1;
-                        if(C[11:8] == 4'h9) begin
-                            C[11:8] <= 0;
-                            C[15:12] <= C[15:12] + 1;
+            //end
+                if(~(sel[1]) && (sel[0])) begin
+                    C[3:0] <= C[3:0] + 1;
+                    if(C[3:0] == 4'h9) begin
+                        C[3:0] <= 0;
+                        C[7:4] <= C[7:4] + 1;
+                        if(C[7:4] == 4'h9) begin
+                            C[7:4] <= 0;
+                            C[11:8] <= C[11:8] + 1;
+                            if(C[11:8] == 4'h9) begin
+                                C[11:8] <= 0;
+                                C[15:12] <= C[15:12] + 1;
+                            end
                         end
                     end
                 end
-            end
-            if((sel[1]) && ~(sel[0])) begin
-                if(C[3:0] == 1'h0) begin
-                    if(C[7:4] == 1'h0) begin
-                        if(C[11:8] == 1'h0) begin
-                            C[15:12] <= C[15:12] - 1'h1;
-                            C[11:8] <= 4'hA;
+                if((sel[1]) && ~(sel[0])) begin
+                    if(C[3:0] == 1'h0) begin
+                        if(C[7:4] == 1'h0) begin
+                            if(C[11:8] == 1'h0) begin
+                                C[15:12] <= C[15:12] - 1'h1;
+                                C[11:8] <= 4'hA;
+                            end
+                            C[11:8] <= C[11:8] - 1'h1;
+                            C[7:4] <= 4'hA;
                         end
-                        C[11:8] <= C[11:8] - 1'h1;
-                        C[7:4] <= 4'hA;
+                        C[7:4] <= C[7:4] - 1'h1;
+                        C[3:0] <= 4'hA;
                     end
-                    C[7:4] <= C[7:4] - 1'h1;
-                    C[3:0] <= 4'hA;
+                    C[3:0] <= C[3:0] - 4'hA;
                 end
-                C[3:0] <= C[3:0] - 4'hA;
-            end
                 
-            if((sel[1]) && (sel[0])) begin
-                if(C[3:0] == 1'h0) begin
-                    if(C[7:4] == 1'h0) begin
-                        if(C[11:8] == 1'h0) begin
-                            C[15:12] <= C[15:12] - 1'h1;
-                            C[11:8] <= 4'hA;
+              if((sel[1]) && (sel[0])) begin
+                    if(C[3:0] == 1'h0) begin
+                        if(C[7:4] == 1'h0) begin
+                            if(C[11:8] == 1'h0) begin
+                               C[15:12] <= C[15:12] - 1'h1;
+                                C[11:8] <= 4'hA;
+                            end
+                            C[11:8] <= C[11:8] - 1'h1;
+                            C[7:4] <= 4'hA;
                         end
-                        C[11:8] <= C[11:8] - 1'h1;
-                        C[7:4] <= 4'hA;
+                        C[7:4] <= C[7:4] - 1'h1;
+                       C[3:0] <= 4'hA;
                     end
-                    C[7:4] <= C[7:4] - 1'h1;
-                    C[3:0] <= 4'hA;
+                    C[3:0] <= C[3:0] - 4'hA;
                 end
-                C[3:0] <= C[3:0] - 4'hA;
             end
-        end
+        end //add
     
     always @ (posedge d_clk or posedge R) begin
         state <= next_state;
