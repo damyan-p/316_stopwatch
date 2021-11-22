@@ -36,9 +36,11 @@ stopwatch_main u1(.clk(clk),.P(P),.R(R),.load(load),.sel(sel),.an(an),.sseg(sseg
 
 initial
 begin
+/*
+//                  uncomment to test mode 0 countup
 P=0;
 clk = 0;
-load = 8'h99;
+load = 8'h91;
 sel = 2'b00;
 R = 0;
 #10;
@@ -48,35 +50,59 @@ R = 0;
 #100;
 P = 1;
 #5;
-P = 0;  //  testing mode 0 count up
-#200;
-R = 1;
+P = 0;
+*/
+
+
+//                  uncomment to test mode 1 countup
+P=0;
+clk = 0;
+load = 8'h91;
 sel = 2'b01;
-#100;
 R = 0;
-#1000;
-P = 1;  //  testing mode 1 count up from 99.00
-#5;
-P = 0;  //  testing mode 0 count up
-#200;
+#10;
 R = 1;
-sel = 2'b10;
-#100;
+#200;
 R = 0;
-#1000;
+#100;
 P = 1;
 #5;
-P = 0;  //  testing mode 2 count down from 99.99
-#200;
-R = 1;
-sel = 2'b11;
+P = 0;
+
+
+/*
+//                  uncomment to test mode 2 countdown
+P=0;
+clk = 0;
 load = 8'h01;
-#100;
+sel = 2'b10;
 R = 0;
-#1000;
+#10;
+R = 1;
+#200;
+R = 0;
+#100;
 P = 1;
 #5;
-P = 0;  //  testing mode 3 count down from 01.00
+P = 0;
+*/
+
+/*
+//                  uncomment to test mode 3 countdown
+P=0;
+clk = 0;
+load = 8'h01;
+sel = 2'b11;
+R = 0;
+#10;
+R = 1;
+#200;
+R = 0;
+#100;
+P = 1;
+#5;
+P = 0;
+*/
 end
 
 always
