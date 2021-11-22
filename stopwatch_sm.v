@@ -86,7 +86,9 @@ module stopwatch_sm(
                         next_cstate = 2'b00;
                     else if(P)
                         next_cstate = 2'b10;
-                    else if(C == 16'h9999) // TODO
+                    else if(C == 16'h9999 && (sel == 2'b01 || sel == 2'b00))    //  pause upcounter at 99.99
+                        next_cstate = 2'b11;
+                    else if(C == 16'h0000 && (sel == 2'b10 || sel == 2'b11))    //  pause downcounter at 00.00
                         next_cstate = 2'b11;
                 end
             2'b10: begin
