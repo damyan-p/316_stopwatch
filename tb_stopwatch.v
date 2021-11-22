@@ -14,7 +14,7 @@
 // Dependencies: 
 // 
 // Revision:
-// Revision 0.03 - removed debugging output
+// Revision 0.02 - added mode 2, 3 testing
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
@@ -28,6 +28,7 @@ reg [7:0] load;
 reg [1:0] sel;
 wire [3:0] an;
 wire [6:0] sseg;
+wire [1:0] cstateDb;
 
 stopwatch_main u1(.clk(clk),.P(P),.R(R),.load(load),.sel(sel),.an(an),.sseg(sseg)
 ,.cstateDb(cstateDb)
@@ -35,7 +36,6 @@ stopwatch_main u1(.clk(clk),.P(P),.R(R),.load(load),.sel(sel),.an(an),.sseg(sseg
 
 initial
 begin
-
 /*
 //                  uncomment to test mode 0 countup
 P=0;
@@ -47,13 +47,13 @@ R = 0;
 R = 1;
 #200;
 R = 0;
-#200;
+#100;
 P = 1;
 #5;
 P = 0;
 */
 
-/*
+
 //                  uncomment to test mode 1 countup
 P=0;
 clk = 0;
@@ -64,11 +64,11 @@ R = 0;
 R = 1;
 #200;
 R = 0;
-#200;
+#100;
 P = 1;
 #5;
 P = 0;
-*/
+
 
 /*
 //                  uncomment to test mode 2 countdown
@@ -81,7 +81,7 @@ R = 0;
 R = 1;
 #200;
 R = 0;
-#200;
+#100;
 P = 1;
 #5;
 P = 0;
@@ -98,14 +98,12 @@ R = 0;
 R = 1;
 #200;
 R = 0;
-#200;
+#100;
 P = 1;
 #5;
 P = 0;
 */
-
 end
-
 
 always
 #5 clk = ~clk;
