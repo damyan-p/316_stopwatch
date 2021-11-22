@@ -60,15 +60,21 @@ module stopwatch_sm(
     //  initializing state changes for state (display fsm)
     always @ (*) begin
         case(state)
-            default: next_state = 2'b00;
-            2'b00: next_state = 2'b01;
-            2'b01: next_state = 2'b10;
-            2'b10: next_state = 2'b11;
-            2'b11: next_state = 2'b00;
+            default: begin
+                    next_state = 2'b00;
+                    state = 2'b00;
+                    end
+            2'b00: next_state = 2'b11;
+            2'b01: next_state = 2'b00;
+            2'b10: next_state = 2'b01;
+            2'b11: next_state = 2'b10;
         endcase
     //  initializing state changes for state (controller fsm)
         case(cstate)
-            default: next_cstate = 2'b00;
+            default: begin
+                    cstate = 2'b00;
+                    next_cstate = 2'b00;
+                    end
             2'b00: begin
                     if(R)
                         next_cstate = 2'b00;
@@ -240,7 +246,7 @@ module stopwatch_sm(
         end
     
         //  moves fsms on posedge of relevant clock
-    always @ (posedge d_clk or posedge R) begin
+    always @ (posedge d_clk) begin
         state <= next_state;
         cstate <= next_cstate;
         end    
