@@ -1,22 +1,22 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: EE 316 Digital Logic Design
+// Engineer: Damyan Pavlovic
 // 
-// Create Date: 11/19/2021 04:28:35 PM
-// Design Name: 
+// Create Date: 10/22/2021 11:19:11 AM
+// Design Name: stopwatch_main
 // Module Name: stopwatch_sm
-// Project Name: 
-// Target Devices: 
+// Project Name: 316_stopwatch
+// Target Devices: Basys3, XC7A35TCPG236-1
 // Tool Versions: 
-// Description: 
+// Description: state machines for controller & display, upcounter, downcounter
 // 
 // Dependencies: 
 // 
 // Revision:
-// Revision 0.01 - File Created
+// Revision 0.01 - added 
 // Additional Comments:
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 

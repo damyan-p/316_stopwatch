@@ -1,20 +1,20 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: EE 316 Digital
+// Engineer: Damyan Pavlovic
 // 
-// Create Date: 11/19/2021 04:15:11 PM
-// Design Name: 
+// Create Date: 10/22/2021 11:19:11 AM
+// Design Name: stopwatch_main
 // Module Name: stopwatch_main
-// Project Name: 
-// Target Devices: 
+// Project Name: 316_stopwatch
+// Target Devices: Basys3, XC7A35TCPG236-1
 // Tool Versions: 
-// Description: 
+// Description: main method
 // 
 // Dependencies: 
 // 
 // Revision:
-// Revision 0.01 - File Created
+// Revision 0.01 - added
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////

@@ -9,13 +9,13 @@
 // Project Name: 316_stopwatch
 // Target Devices: Basys3, XC7A35TCPG236-1
 // Tool Versions: 
-// Description: clock division module
+// Description: testbench
 // 
 // Dependencies: 
 // 
 // Revision:
-// Revision 0.02 - added 
-// Additional Comments: added mode 2, 3 testing
+// Revision 0.02 - added mode 2, 3 testing
+// Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
