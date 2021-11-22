@@ -226,7 +226,7 @@ module stopwatch_sm(
                         C[7:4] <= C[7:4] - 1'h1;
                         C[3:0] <= 4'hA;
                     end
-                    C[3:0] <= C[3:0] - 4'hA;
+                    C[3:0] <= C[3:0] - 4'h1;
                 end
         //  mode 3 downcounter
               if((sel[1]) && (sel[0])) begin
