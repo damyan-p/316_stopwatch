@@ -14,7 +14,7 @@
 // Dependencies: 
 // 
 // Revision:
-// Revision 0.02 - removed debug output
+// Revision 0.01 - added 
 // Additional Comments:
 //
 //////////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,8 @@ module stopwatch_sm(
     output [6:0] in2,
     output [6:0] in3,
     output reg [3:0] an,
-    output reg [6:0] sseg
+    output reg [6:0] sseg,
+    output [1:0] cstateDb
     );
     
     reg [1:0] state;
@@ -46,7 +47,9 @@ module stopwatch_sm(
     reg C_cnt;
 
     assign dp = dp_reg;
-
+    assign cstateDb[1] = C_clr;
+    assign cstateDb[0] = C_cnt;
+    
     //  converting C counter output to seven-segment displays in[3:]
     //  in[3:0] put into an[3:0] during display fsm @100
     hexto7segment c3(.x(C[15:12]),.r(in3));
