@@ -50,11 +50,14 @@ module stopwatch_sm(
     assign cstateDb[1] = C_clr;
     assign cstateDb[0] = C_cnt;
     
+    //  converting C counter output to seven-segment displays in[3:]
+    //  in[3:0] put into an[3:0] during display fsm @100
     hexto7segment c3(.x(C[15:12]),.r(in3));
     hexto7segment c4(.x(C[11:8]),.r(in2));
     hexto7segment c5(.x(C[7:4]),.r(in1));
     hexto7segment c6(.x(C[3:0]),.r(in0));
     
+    //  initializing state changes for state (display fsm)
     always @ (*) begin
         case(state)
             default: next_state = 2'b00;
@@ -63,6 +66,7 @@ module stopwatch_sm(
             2'b10: next_state = 2'b11;
             2'b11: next_state = 2'b00;
         endcase
+    //  initializing state changes for state (controller fsm)
         case(cstate)
             default: next_cstate = 2'b00;
             2'b00: begin
@@ -94,6 +98,7 @@ module stopwatch_sm(
         endcase
     end
     
+    //  defining fsm; state defines output to each display an[3:0]
     always @ (*) begin
         case(state)
             2'b00: begin
@@ -117,6 +122,7 @@ module stopwatch_sm(
                     an = 4'b1000;
                     end
         endcase
+        //  defining fsm; state defines counter clear/count
         case(cstate)
             2'b00: begin
                     C_clr = 1;
@@ -136,22 +142,30 @@ module stopwatch_sm(
                     end
         endcase
     end
-    
+        //  counter implementation
+        //  based on mode sel[1:0]
+        //  mode 0, 1: upcounter from 0, 16'h[load[7:4],load[3:0],0,0]
+        //  mode 2, 3: downcounter from 16'h9999, 16'h[load[7:4],load[3:0],0,0]
+        
     always @ (posedge c_clk or posedge C_clr) begin
         if(C_clr) begin
+        //  mode 0 clear
             if(~(sel[1]) && ~(sel[0]))
                 C <= 0;
+        //  mode 1 clear
             if(~(sel[1]) && (sel[0])) begin
                 C[7:0] <= 0;
                 C[15:12] <= load[7:4];
                 C[11:8] <= load[3:0];
                 end
+        //  mode 2 clear
             if((sel[1]) && ~(sel[0])) begin
                 C[3:0] <= 4'h9;
                 C[7:4] <= 4'h9;
                 C[11:8] <= 4'h9;
                 C[15:12] <= 4'h9;
                 end
+        //  mode 3 clear
             if((sel[1]) && (sel[0])) begin
                 C[7:0] <= 0;
                 C[15:12] <= load[7:4];
@@ -159,6 +173,7 @@ module stopwatch_sm(
                 end
             end
         else if(C_cnt) begin
+        //  mode 0 upcounter
             if(~(sel[1]) && ~(sel[0]))
                 C[3:0] <= C[3:0] + 1;
                 if(C[3:0] == 4'h9) begin
@@ -173,7 +188,7 @@ module stopwatch_sm(
                         end
                     end
                 end
-            //end
+        //  mode 1 upcounter
                 if(~(sel[1]) && (sel[0])) begin
                     C[3:0] <= C[3:0] + 1;
                     if(C[3:0] == 4'h9) begin
@@ -189,6 +204,7 @@ module stopwatch_sm(
                         end
                     end
                 end
+        //  mode 2 downcounter
                 if((sel[1]) && ~(sel[0])) begin
                     if(C[3:0] == 1'h0) begin
                         if(C[7:4] == 1'h0) begin
@@ -204,7 +220,7 @@ module stopwatch_sm(
                     end
                     C[3:0] <= C[3:0] - 4'hA;
                 end
-                
+        //  mode 3 downcounter
               if((sel[1]) && (sel[0])) begin
                     if(C[3:0] == 1'h0) begin
                         if(C[7:4] == 1'h0) begin
@@ -221,8 +237,9 @@ module stopwatch_sm(
                     C[3:0] <= C[3:0] - 4'hA;
                 end
             end
-        end //add
+        end
     
+        //  moves fsms on posedge of relevant clock
     always @ (posedge d_clk or posedge R) begin
         state <= next_state;
         cstate <= next_cstate;
