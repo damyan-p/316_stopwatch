@@ -196,6 +196,7 @@ module stopwatch_sm(
                         end
                     end
                 end
+            end
         //  mode 1 upcounter
                 if(~(sel[1]) && (sel[0])) begin
                     C[3:0] <= C[3:0] + 1;
@@ -244,7 +245,6 @@ module stopwatch_sm(
                     end
                     C[3:0] <= C[3:0] - 4'hA;
                 end
-            end
         end
     
         //  moves fsms on posedge of relevant clock
