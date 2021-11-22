@@ -7,9 +7,10 @@
 // Design Name: stopwatch_main
 // Module Name: clk_div_disp
 // Project Name: 316_stopwatch
-// Target Devices: Basys3 
+// Target Devices: Basys3, XC7A35TCPG236-1
 // Tool Versions: 
-// Description: clock division module
+// Description: clock division module; outputs c_clk for counter and d_clk for display
+// c_clk posedge 4 times slower than d_clk posedge to allow for an[3:0] cycle before 
 // 
 // Dependencies: 
 // 
@@ -26,15 +27,15 @@ module clk_div_disp(
     output c_clk,
     output d_clk
     );
-    //reg [16:0] COUNT;                 //  uncomment for clock speed for final (1ms) verification
-    reg [26:0] COUNT;             //  uncomment for 1s realtime counter speed
+    //reg [18:0] COUNT;                 //  uncomment for clock speed for final (1ms) verification
+    reg [28:0] COUNT;             //  uncomment for 1s realtime counter speed
     //reg [1:0] COUNT;                //  uncomment for simulation clock speed
     reg [1:0] D_COUNT;
     
 
     //assign d_clk = (COUNT[1]);                  //  simulation clock speed
-    //assign d_clk = (COUNT == 17'd100000);  //  uncomment for 1ms realtime counter speed
-    assign d_clk = (COUNT == 27'd100000000);  //  uncomment for 1s realtime counter speed
+    //assign d_clk = (COUNT == 19'd400000);  //  uncomment for 1ms realtime counter speed
+    assign d_clk = (COUNT == 29'd400000000);  //  uncomment for 1s realtime counter speed
     
     assign c_clk = (D_COUNT[1]);    
     
