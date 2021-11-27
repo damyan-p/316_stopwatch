@@ -1,23 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: EE 316 Digital Logic Design
-// Engineer: Damyan Pavlovic
-// 
-// Create Date: 10/22/2021 11:19:11 AM
-// Design Name: stopwatch_main
-// Module Name: hexto7segment
-// Project Name: 316_stopwatch
-// Target Devices: Basys3, XC7A35TCPG236-1
-// Tool Versions: 
-// Description: converts 4-bit binary to Basys3 seven-segment digital display
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - added
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
 
 module hexto7segment(
