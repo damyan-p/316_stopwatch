@@ -5,3 +5,19 @@ start button ( t18 or top most does nothing )
 reset does notghint ( middle or u18) 
 
 It's just broken. 
+
+
+
+//// 11/27/21 5:30pm 
+
+i changed soemthign in the clock divider folder. 
+
+It's probably still a lcok issue. 
+
+with the select both low 00 
+
+it displays 0. 0 0. 0. and it flickers. it hasa  . the opposite of where it should.  
+
+pressing start you see strange numbers on the display. reset sort of sets it back to 0. 0 0. 0. 
+
+there is incredilby weird behiavior for perssing start. 
