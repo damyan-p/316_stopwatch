@@ -14,7 +14,7 @@
 // Dependencies: 
 // 
 // Revision:
-// Revision 0.01 - added
+// Revision 0.02 - removed sim debug
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
@@ -28,8 +28,7 @@ module stopwatch_main(
     input [1:0] sel,
     output [3:0] an,
     output [6:0] sseg,
-    output dp,
-    output [1:0] cstateDb
+    output dp
     );
     
     wire [6:0] in0,in1,in2,in3;
@@ -37,7 +36,6 @@ module stopwatch_main(
     clk_div_disp c1(.clk(clk),.reset(R), .c_clk(c_clk),.d_clk(d_clk));
     
     stopwatch_sm c2(.c_clk(c_clk),.d_clk(d_clk), .R(R),.P(P),.sel(sel),.load(load),.dp(dp), .in0(in0), .in1(in1),.in2(in2),.in3(in3),.an(an),.sseg(sseg)
-    ,.cstateDb(cstateDb)
     );
     
 endmodule

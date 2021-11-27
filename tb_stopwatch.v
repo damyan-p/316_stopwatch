@@ -14,7 +14,7 @@
 // Dependencies: 
 // 
 // Revision:
-// Revision 0.02 - added mode 2, 3 testing
+// Revision 0.03 - removed sim debug
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
@@ -28,10 +28,8 @@ reg [7:0] load;
 reg [1:0] sel;
 wire [3:0] an;
 wire [6:0] sseg;
-wire [1:0] cstateDb;
 
 stopwatch_main u1(.clk(clk),.P(P),.R(R),.load(load),.sel(sel),.an(an),.sseg(sseg)
-,.cstateDb(cstateDb)
 );
 
 initial
