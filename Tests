@@ -1,8 +1,7 @@
-right most switch does nothign. 
-sw0 does nothign
-sw1 switches teh display to 999 without reset. 
-sw2 does nothign 
-sw3 does nothign 
+Display only outputs 000 instead of 00.00 
+flipping sw1 immediately sets to 999 reset doesnt set the thign.
 
+start button ( t18 or top most does nothing ) 
+reset does notghint ( middle or u18) 
 
-counter doesnt seem to work for the counting
+It's just broken. 
