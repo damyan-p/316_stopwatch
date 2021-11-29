@@ -89,22 +89,22 @@ module stopwatch_sm(
         case(state)
             2'b00: begin
                     sseg = in0;
-                    dp_reg = 1;
+                    dp_reg = 1; // maybe set as 0 
                     an = 4'b0001;
                     end
             2'b01: begin
                     sseg = in1;
-                    dp_reg = 1;
+                    dp_reg = 1; // maybe set as 0
                     an = 4'b0010;
                     end
             2'b10: begin
                     sseg = in2;
-                    dp_reg = 0;
+                    dp_reg = 0; // maybe set as 1
                     an = 4'b0100;
                     end
             2'b11: begin
                     sseg = in3;
-                    dp_reg = 1;
+                    dp_reg = 1; // maybbe set as 0 
                     an = 4'b1000;
                     end
         endcase
