@@ -56,8 +56,8 @@ module stopwatch_sm(
             2'b00: begin
                     if(R)
                         next_cstate = 2'b00;
-                    else if(P)
-                        next_cstate = 2'b01;
+                    else
+                        next_cstate = 2'b10;
                     end
             2'b01: begin
                     if(R)
@@ -68,12 +68,16 @@ module stopwatch_sm(
                         next_cstate = 2'b11;
                     else if(C == 16'h0000 && (sel == 2'b10 || sel == 2'b11))    //  pause downcounter at 00.00
                         next_cstate = 2'b11;
+                    else
+                    next_cstate = 2'b01;
                 end
             2'b10: begin
                     if(R)
                         next_cstate = 2'b00;
                     else if(P)
                         next_cstate = 2'b01;
+                    else
+                        next_cstate = 2'b10;
                 end
             2'b11: begin
                     if(R)
@@ -90,22 +94,22 @@ module stopwatch_sm(
             2'b00: begin
                     sseg = in0;
                     dp_reg = 1; // maybe set as 0 
-                    an = 4'b0001;
+                    an = 4'b1110;
                     end
             2'b01: begin
                     sseg = in1;
                     dp_reg = 1; // maybe set as 0
-                    an = 4'b0010;
+                    an = 4'b1101;
                     end
             2'b10: begin
                     sseg = in2;
                     dp_reg = 0; // maybe set as 1
-                    an = 4'b0100;
+                    an = 4'b1011;
                     end
             2'b11: begin
                     sseg = in3;
                     dp_reg = 1; // maybbe set as 0 
-                    an = 4'b1000;
+                    an = 4'b0111;
                     end
         endcase
         //  defining fsm; state defines counter clear/count
@@ -167,11 +171,11 @@ module stopwatch_sm(
                     C[3:0] <= 0;
                     C[7:4] <= C[7:4] + 1;
                 end
-                if(C[7:4] == 4'h9 && (C != 16'h9999)) begin
+                if(C[3:0] == 4'h9 && C[7:4] == 4'h9 && (C != 16'h9999)) begin
                     C[7:4] <= 0;
                     C[11:8] <= C[11:8] + 1;
                 end
-                if(C[11:8] == 4'h9 && (C != 16'h9999)) begin
+                if(C[3:0] == 4'h9 && C[7:4] == 4'h9 && C[11:8] == 4'h9 && (C != 16'h9999)) begin
                     C[11:8] <= 0;
                     C[15:12] <= C[15:12] + 1;
                 end
