@@ -49,10 +49,6 @@ module stopwatch_sm(
         endcase
     //  initializing state changes for state (controller fsm)
         case(cstate)
-            default: begin
-                    cstate = 2'b00;
-                    next_cstate = 2'b00;
-                    end
             2'b00: begin
                     if(R)
                         next_cstate = 2'b00;
@@ -76,10 +72,7 @@ module stopwatch_sm(
                         next_cstate = 2'b10;
                 end
             2'b11: begin
-                    if(R)
-                        next_cstate = 2'b00;
-                    else
-                        next_cstate = 2'b11;
+            //  pour one out for the homies
                 end
         endcase
     end
@@ -110,6 +103,10 @@ module stopwatch_sm(
         endcase
         //  defining fsm; state defines counter clear/count
         case(cstate)
+            default: begin
+                    C_clr = 0;
+                    C_cnt = 0;
+                    end
             2'b00: begin
                     C_clr = 1;
                     C_cnt = 0;
@@ -123,8 +120,9 @@ module stopwatch_sm(
                     C_cnt = 0;
                     end
             2'b11: begin
-                    C_clr = 0;
-                    C_cnt = 0;
+            //  another one for the boys
+            //  don't ask me why we have to case a state that never gets used
+            //  it just works
                     end
         endcase
     end
