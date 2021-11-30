@@ -64,10 +64,6 @@ module stopwatch_sm(
                         next_cstate = 2'b00;
                     else if(P)
                         next_cstate = 2'b10;
-                    else if(C == 16'h9999 && (sel == 2'b01 || sel == 2'b00))    //  pause upcounter at 99.99
-                        next_cstate = 2'b11;
-                    else if(C == 16'h0000 && (sel == 2'b10 || sel == 2'b11))    //  pause downcounter at 00.00
-                        next_cstate = 2'b11;
                     else
                     next_cstate = 2'b01;
                 end
@@ -166,7 +162,8 @@ module stopwatch_sm(
         else if(C_cnt) begin
         //  mode 0 upcounter
             if(~(sel[1]) && ~(sel[0])) begin
-                C[3:0] <= C[3:0] + 1;
+                if(C != 16'h9999)
+                    C[3:0] <= C[3:0] + 1;
                 if(C[3:0] == 4'h9 && (C != 16'h9999)) begin
                     C[3:0] <= 0;
                     C[7:4] <= C[7:4] + 1;
@@ -182,6 +179,7 @@ module stopwatch_sm(
             end
         //  mode 1 upcounter
             else if(~(sel[1]) && (sel[0])) begin
+                if(C != 16'h9999)
                    C[3:0] <= C[3:0] + 1;
                 if(C[3:0] == 4'h9 && (C != 16'h9999)) begin
                     C[3:0] <= 0;
@@ -201,45 +199,43 @@ module stopwatch_sm(
             end
         //  mode 2 downcounter
             else if((sel[1]) && ~(sel[0])) begin
-                if(C[11:8] == 0 && C[7:4] == 0 && C[3:0] == 4'h0) begin
+                if(C[11:8] == 0 && C[7:4] == 0 && C[3:0] == 4'h0 && (C != 16'h0000)) begin
                     C[15:12] <= C[15:12] - 1;
                     C[11:8] <= 4'h9;
                     C[7:4] <= 4'h9;
                     C[3:0] <= 4'h9;
                 end
-                else if(C[7:4] == 0 && C[3:0] == 4'h0) begin
+                else if(C[7:4] == 0 && C[3:0] == 4'h0 && (C != 16'h0000)) begin
                     C[11:8] <= C[11:8] - 1;
                     C[7:4] <= 4'h9;
                     C[3:0] <= 4'h9;
                 end
-                else if(C[3:0] == 4'h0) begin
+                else if(C[3:0] == 4'h0 && (C != 16'h0000)) begin
                     C[7:4] <= C[7:4] - 1;
                     C[3:0] <= 4'h9;
                 end
-                else begin
+                else if(C != 16'h0000)
                 C[3:0] <= C[3:0] - 4'h1;
-                end
             end
         //  mode 3 downcounter
             else if((sel[1]) && (sel[0])) begin
-                if(C[11:8] == 0 && C[7:4] == 0 && C[3:0] == 4'h0) begin
+                if(C[11:8] == 0 && C[7:4] == 0 && C[3:0] == 4'h0 && (C != 16'h0000)) begin
                     C[15:12] <= C[15:12] - 1;
                     C[11:8] <= 4'h9;
                     C[7:4] <= 4'h9;
                     C[3:0] <= 4'h9;
                 end
-                else if(C[7:4] == 0 && C[3:0] == 4'h0) begin
+                else if(C[7:4] == 0 && C[3:0] == 4'h0 && (C != 16'h0000)) begin
                     C[11:8] <= C[11:8] - 1;
                     C[7:4] <= 4'h9;
                     C[3:0] <= 4'h9;
                 end
-                else if(C[3:0] == 4'h0) begin
+                else if(C[3:0] == 4'h0 && (C != 16'h0000)) begin
                     C[7:4] <= C[7:4] - 1;
                     C[3:0] <= 4'h9;
                 end
-                else begin
+                else if(C != 16'h0000)
                 C[3:0] <= C[3:0] - 4'h1;
-                end
             end
         end
     end
